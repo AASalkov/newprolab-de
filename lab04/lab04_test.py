@@ -83,3 +83,5 @@ query = out_df \
   .option("kafka.bootstrap.servers", kafka_bootstrap ) \
   .option("topic", topic_out) \
   .start()
+  
+query.awaitTermination()  
