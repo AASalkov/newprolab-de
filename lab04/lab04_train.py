@@ -49,5 +49,5 @@ indexer = StringIndexer(inputCol="gender_age", outputCol="label")
 lr = LogisticRegression()
 pipeline = Pipeline(stages=[cv, indexer, lr])
 
-pipeline.fit(df)
-pipeline.save("lab04/model")
+model = pipeline.fit(df)
+model.save("lab04/model")
