@@ -31,12 +31,15 @@ def hello_world():
 
 @app.route('/predict_gender_age', methods=['POST'])
 def predict_age():
-    data = json.load(request.json)
-    df = pd.read_json(data, lines=True)
+    js = json.loads(request.json)
+    df = pd.DataFrame(js)
     df.visits = df.visits.apply(list2domain)
-    res = model.predict(df["visits"])
-    print(type(res))
+    df["gender_age"] = model.predict(df["visits"])
+    res = ""
+    for index, row in df.iterrows():
+        res = res + '{"uid": "' + row['uid'] + '", "gender_age": "' + row['gender_age'] + '"}' + "\n"
     print(res)
+    return res
 
 
 if __name__ == '__main__':
